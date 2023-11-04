@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/car_owner_dashboard.css">
+</br> </br>
+
+<div class="col-20 head">
+  <h1 class="col-m-3">{{ user.username }}'s Dashboard</h1>
+  <a href="{% url 'car_add' %}" class="adding-link"><button type="submit" class="btn btn-warning">Add more</button></a>
+</div>
+
+{% for message in messages %}
+<p id="messages">{{message}}</p>
+{% endfor %}
+
+<section class="vh-200 row-200" style="background-color: #eee;">
+    <div class="container py-5 h-200">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-9 col-xl-12">
+          <div class="card rounded-3">
+            <div class="card-body p-4">
+  
+              <h4 class="text-center my-3 pb-3">My Cars</h4>
+
+                <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                  <div class="col-12">
+                    <div class="form-outline">
+                      <input type="text" id="form1" class="form-control" />
+                      <label class="form-label" for="form1">Search</label>
+                    </div>
+                  </div>
+  
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                  </div>
+                </form>
+  
+                <table class="table mb-4">
+                  <thead>
+                    <tr>
+                      <th scope="col">No.</th>
+                      <th scope="col">Cars</th>
+                      <th class="model" scope="col">Model</th>
+                      <th class="pnumber" scope="col">Plate Number</th>
+                      <th scope="col">Rental Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  {% if cars %}
+                  {% for car in cars %}
+                      <tbody>
+                          <tr> 
+                              <th scope="row">{{ car.id }}</th>
+                                  <td>{{ car.make }}</td>
+                                  <td class="model_prop" >{{ car.car_model }}</td>
+                                  <td class="pnumber_prop">{{ car.plate_number }}</td>
+                                {% if car.is_booked == True %}
+                                  <td>Booked</td>
+                                {% else %}
+                                  <td>Available</td>
+                                {% endif %}
+                                  <td>
+
+                                      <a href="/delete_car/{{car.pk}}">
+                                        <button type="submit" class="btn btn-danger">
+                                            Delete
+                                        </button>
+                                      </a>
+                                      <a href="/edit/{{car.pk}}"><button type="submit" class="btn btn-success ms-1">Edit</button></a>
+
+                                  </td>
+                            </tr>
+                    {% endfor %}
+                    {% else %}
+                        <p>You dont have cars yet</p>
+                    {% endif %}
+                      </tbody>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  </section>
+
+
+  {% endblock %}
+
+
