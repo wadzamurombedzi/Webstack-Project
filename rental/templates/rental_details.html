@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="vh-100" style="background-color: #35558a;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100 text-center">
+      <div class="col">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-light btn-lg" data-mdb-toggle="modal"
+          data-mdb-target="#exampleModal">
+          <i class="fas fa-info me-2"></i> Get rental detail information
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header border-bottom-0">
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-start text-black p-4">
+                <h5 class="modal-title text-uppercase mb-5" id="exampleModalLabel">{{ rental.car.make }} <strong>{{ rental.car.car_model }}</strong></h5>
+                <h4 class="mb-5" style="color: #35558a;">Thanks for your booking</h4>
+                <p class="mb-0" style="color: #35558a;">Rental summary</p>
+                <hr class="mt-2 mb-4"
+                  style="height: 0; background-color: transparent; opacity: .75; border-top: 2px dashed #9e9e9e;">
+
+                <div class="d-flex justify-content-between">
+                  <p class="fw-bold mb-0">Customer</p>
+                  <p class="text-muted mb-0">{{rental.customer}}</p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <p class="fw-bold mb-0">Car Owner</p>
+                  <p class="text-muted mb-0">{{rental.car.owner}}</p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <p class="small mb-0">Start-date</p>
+                  <p class="small mb-0">{{rental.start_date}}</p>
+                </div>
+
+                <div class="d-flex justify-content-between pb-1">
+                  <p class="small">End-date</p>
+                  <p class="small">{{rental.end_date}}</p>
+                </div>
+
+                {% if rental.chauffeur %}
+                <div class="d-flex justify-content-between pb-1">
+                  <p class="small">Driver</p>
+                  <p class="small">{{rental.chauffeur.name}}</p>
+                </div>
+                {% else %}
+                <div class="d-flex justify-content-between pb-1">
+                  <p class="small">Driver Situation</p>
+                  <p class="small">You did'nt select a chauffeur</p>
+                </div>
+                {% endif %}
+
+                <div class="d-flex justify-content-between">
+                  <p class="fw-bold">Rental Cost</p>
+                  <p class="fw-bold" style="color: #35558a;">ZWL {{rental.rental_cost}}</p>
+                </div>
+
+              </div>
+              <div class="modal-footer d-flex justify-content-center border-top-0 py-4">
+                <button type="button" class="btn btn-primary btn-lg mb-1" style="background-color: #35558a;">
+                  Proceed to payment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

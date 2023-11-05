@@ -1,0 +1,75 @@
+
+{% extends 'base.html' %}
+<link rel="stylesheet" href="/static/css/rental_form.css">
+{% block content %}
+<br><br>
+
+<div class="rental_form" style="display: flex; margin-left: 233px; @media (max-width: 600px){ margin-left: 23px;}">
+
+    <div class="px-3" style= "@media (max-width: 600px){ margin-left: 23px, display:None;}">
+        <h2 style="color: cornflowerblue; font-weight: bolder;"><p class="book" style="color: black;">Booking</p> {{ car.make }} {{ car.car_model }}</h2>
+        <hr>
+            <p class="small text-muted mb-1">Model Year</p>
+            <p class="mb-0" style="color: cornflowerblue; font-weight: bolder;">{{ car.model_year }}</p>
+
+            <p class="small text-muted mb-1">Daily Rental Price/Ecocash</p>
+            {% if car.ecocash_rate %}
+                <p class="mb-0" style="color: cornflowerblue; font-weight: bolder;">ZWL{{car.ecocash_rate}}</p>
+            {% else %}
+                <p class="mb-0" style="color: cornflowerblue; font-weight: bolder;">${{car.daily_rental_price}}</p>
+            {% endif %}
+
+            <p class="small text-muted mb-1">Car Owner</p>
+            <p class="mb-0" style="color: cornflowerblue; font-weight: bolder;">@{{car.owner.username}}</p>
+
+            <p class="small text-muted mb-1">Car Color</p>
+            <p class="mb-0" style="color: cornflowerblue; font-weight: bolder;">{{car.color}}</p>
+
+            <p class="small text-muted mb-1">Late Return Fee</p>
+            <p class="mb-0" style="color: cornflowerblue; font-weight: bolder;">${{car.late_return_fee_per_hr}}/hr</p>
+
+            {% for message in messages%}
+                <p style="color:red;">{{messages}}</p>
+            {% endfor %}
+    </div>
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+      
+                <form method="post">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_start_date">Start Date</label>
+                        {{ form.start_date }}
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="id_end_date">End Date</label>
+                        {{ form.end_date }}
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="id_with_chauffeur">With Chauffeur</label>
+                        {{ form.with_chauffeur }}
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="id_customer_destination">Customer Destination</label>
+                        {{ form.customer_destination }}
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="id_payment_method">Payment Method</label>
+                        {{ form.payment_method }}
+                    </div><br>
+                    <button type="submit" class="btn btn-primary">Proceed</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
